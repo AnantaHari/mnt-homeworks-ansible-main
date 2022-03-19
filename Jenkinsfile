@@ -3,15 +3,24 @@ pipeline {
         label 'linux'
     }
     stages {
+        stage('checkout role'){
+            dir('mnt-homeworks-ansible'){
+                git branch: 'main', credentialsId: '71f28e48-74fb-4a6a-a514-c82ecf7b80fd', url: 'git@github.com:AnantaHari/mnt-homeworks-ansible-main.git'
+            }
+        }
         stage('Install molecule') {
             steps{
-                sh 'cd mnt-homeworks-ansible && pip3 install -r test-requirements.txt'
+                dir('mnt-homeworks-ansible'){
+                    sh 'cd mnt-homeworks-ansible && pip3 install -r test-requirements.txt'
+                }
                 sh "echo =============="
             }
         }
         stage('Run Molecule'){
             steps{
-                sh 'cd mnt-homeworks-ansible && molecule test'
+                dir('mnt-homeworks-ansible'){
+                    sh 'cd mnt-homeworks-ansible && molecule test'
+                }
             }
         }
     }
