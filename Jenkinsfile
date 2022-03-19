@@ -13,7 +13,7 @@ pipeline {
         stage('Install molecule') {
             steps{
                 dir('mnt-homeworks-ansible'){
-                    sh 'cd mnt-homeworks-ansible && pip3 install -r test-requirements.txt'
+                    sh 'pip3 install -r test-requirements.txt'
                 }
                 sh "echo =============="
             }
@@ -21,7 +21,7 @@ pipeline {
         stage('Run Molecule'){
             steps{
                 dir('mnt-homeworks-ansible'){
-                    sh 'cd mnt-homeworks-ansible && molecule test'
+                    sh 'molecule test'
                 }
             }
         }
